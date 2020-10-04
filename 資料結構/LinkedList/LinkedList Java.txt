@@ -1,0 +1,16 @@
+		LinkedList<Integer> ll = new LinkedList();
+		ll.add(1);
+		ll.add(2);
+		ll.add(3);
+		System.out.println(ll);
+		ll.add(2,22);
+		ll.add(2,33);	//index,data
+		System.out.println(ll);
+		ll.remove(2);
+		System.out.println(ll);
+		ll.addFirst(45);
+		ll.addLast(454);
+		System.out.println(ll);
+		ll.removeFirst();
+		ll.removeLast();
+		System.out.println(ll);

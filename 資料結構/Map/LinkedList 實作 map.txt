@@ -1,0 +1,145 @@
+
+class mp{
+	private int index = 0;
+	private Note head;
+	class Note{
+		String key;
+		String value;
+		Note next;
+	}
+	
+	//取得最後Note
+	private Note getLastNote() {
+		Note note = head;
+		for(int i=0 ; i<index-1 ; i++) {
+			note = note.next;
+		}
+		return note;
+	}
+	
+	//判斷是否有重複
+	private boolean repeat(String k) {
+		Note note = head;
+		for(int i=0 ; i<index ; i++) {
+			if(note.key.equals(k)) {
+				return true;
+			}
+			note = note.next;
+		}
+		return false;
+	}
+	
+	//新增資料
+	public void put(String k,String v) {
+		Note note = new Note();
+		if(index == 0) {
+			note.key = k;
+			note.value = v;
+			head = note;
+			index++;
+		}else{
+			if(repeat(k)) {
+				Note Tnote = head;
+				for(int i=0 ; i<index ; i++) {
+					if(Tnote.key.equals(k)) {
+						Tnote.value = v;
+						break;
+					}
+					Tnote = Tnote.next;
+				}
+			}else if(index == 1){
+				note.key = k;
+				note.value = v;
+				head.next = note;
+				index++;
+			}else {
+				Note Tnote = getLastNote();
+				note.key = k;
+				note.value = v;
+				Tnote.next = note;
+				index++;
+			}
+		}	
+	}
+	
+	public String getKey(String v) {
+		Note note = head;
+		for(int i=0 ; i<index ; i++) {
+			if(note.value.equals(v)) {
+				return note.key;
+			}
+			note = note.next;
+		}
+		return "false";
+	}
+	
+	//get key -> Value
+	public String getValue(String k) {
+		Note note = head;
+		for(int i=0 ; i<index ; i++) {
+			if(note.key.equals(k)) {
+				return note.value;
+			}
+			note = note.next;
+		}
+		return "false";
+	}
+	
+	//刪除 key 整個資料
+	public boolean remove(String k) {
+		Note note = head;
+		Note Tnote = head;
+		for(int i=0 ; i<index ; i++) {
+			if(note.key.equals(k)) {
+				if(i == 0) {
+					head = head.next;			
+				}else{
+					Tnote.next = note.next;
+				}
+				index--;
+				return true;
+			}
+			Tnote = note;
+			note = note.next;
+		}
+		return false;
+	}
+	
+	public void Show() {
+		Note note = head;
+		String str = "",Tstr;
+		for(int i=0 ; i<index ; i++) {
+			Tstr = "[";
+			Tstr += note.key+",";
+			Tstr += note.value+"],";
+			note = note.next;
+			str += Tstr;
+		}
+		System.out.println(str);
+	}
+	
+}
+
+
+public class map {
+	public static void main(String[] args) {
+		mp m = new mp();
+		m.put("1", "123");
+		m.put("2", "456");
+		m.put("3", "789");
+		m.put("1", "777");
+		m.put("5", "ttt");
+		m.Show();
+		System.out.println(m.getValue("1"));
+		System.out.println(m.remove("1"));
+		m.Show();
+		System.out.println(m.getValue("1"));
+		m.put("1", "123");
+		m.put("2", "456");
+		m.put("3", "789");
+		m.put("1", "777");
+		m.put("5", "ttt");
+		m.Show();
+		System.out.println(m.getKey("ttt"));
+	}
+}

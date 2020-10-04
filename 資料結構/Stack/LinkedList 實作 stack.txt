@@ -1,0 +1,105 @@
+
+class ss{
+	private int index = 0;
+	private stack first;
+	class stack{
+		private int data;
+		private stack next;
+	}
+	
+	
+	//查閱最上層的stack物件(class內使用)
+	private stack peekStack() {
+		stack sta = first;
+		for(int i=0 ; i<index-1 ; i++) {
+			sta = sta.next;
+		}
+		return sta;
+	}
+	
+	//新增物件
+	public void push(int n) {
+		stack sta = new stack();
+		if(index == 0) {
+			sta.data = n;
+			first = sta;
+		}else if(index == 1){
+			sta.data = n;
+			first.next = sta;
+		}else {
+			stack tsta = peekStack();
+			sta.data = n;
+			tsta.next = sta;
+		}
+		index++;
+	}
+	
+	//查閱最上層的資料
+	public void peek() {
+		stack sta = first;
+		for(int i=0 ; i<index-1 ; i++) {
+			sta = sta.next;	
+		}
+		System.out.println("最上層為： "+sta.data);
+	}
+	
+	//刪除最上層資料
+	public void pop() {
+		stack sta = first;
+		if(index == 0) {
+			System.out.println("裡面無資料可以刪!!");
+		}else {
+			if(index == 1) {
+				System.out.println("已刪除最上層資料： "+first.data);
+				first = null;
+				index--;
+			}else {
+				for(int i=0 ; i<index-2 ; i++) {
+					sta = sta.next;
+				}
+				System.out.println("已刪除最上層資料： "+sta.next.data);
+				sta.next = null;
+				index--;
+			}
+		}
+	}
+	
+	//all Show
+	public void Show() {
+		stack sta = first;
+		for(int i=0 ; i<index ; i++) {
+			System.out.print(sta.data+" ");
+			sta = sta.next;
+		}
+		System.out.println();
+	}
+}
+
+
+public class stack {
+	public static void main(String[] args) {
+			ss sta = new ss();
+			sta.push(1);
+			sta.push(2);
+			sta.push(3);
+			sta.push(4);
+			sta.push(5);
+			sta.Show();
+			sta.peek();
+			sta.pop();
+			sta.Show();
+			sta.peek();
+			sta.pop();
+			sta.pop();
+			sta.pop();
+			sta.pop();
+			sta.pop();
+			sta.push(6);
+			sta.push(5);
+			sta.push(4);
+			sta.push(3);
+			sta.push(2);
+			sta.Show();
+	}
+
+}

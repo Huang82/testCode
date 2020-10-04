@@ -1,0 +1,9 @@
+Queue<Integer> qu = new LinkedList();
+		qu.offer(0);
+		qu.offer(1);
+		qu.offer(2);
+		qu.offer(3);
+		qu.offer(4);
+		System.out.println(qu);
+		qu.poll();
+		System.out.println(qu);

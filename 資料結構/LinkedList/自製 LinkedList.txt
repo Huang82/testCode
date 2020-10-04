@@ -1,0 +1,164 @@
+
+//LinkedList 串列連結
+class Linked_List{
+	private Note head;
+	private int index = 0;
+	class Note{
+		String data;
+		Note next;
+		
+	}
+	
+	//取得指定前一個index的Note
+	private Note indexNote(int in){
+		Note not = head;
+		for(int i=0 ; i<in-1 ;i++) {
+			not = not.next;
+		}
+		return not;
+	}
+	
+	//取得現在最大值index的next
+	private Note maxNote() {
+		Note to = head;
+		for(int i=0 ; i<index-1 ; i++) {
+			to = to.next;
+		}
+		return to;
+	}
+	
+	//增加data到最後
+	void addData(String str){
+		Note no = new Note();
+		no.data = str;
+		if(index == 0) {
+			head = no;
+		}else if(index == 1){
+			head.next = no;
+		}else {
+			Note tno = maxNote();
+			tno.next = no;
+		}
+		index++;
+	}
+	
+	//增加data到指定的index
+	void addIndexData(int in ,String str) {
+		if(index == in) {
+			addData(str);
+		}else if(index <= in) {
+			System.out.println("超出資料index!!");
+		}else if(in == 0){
+			Note tno = head;
+			Note New_no = new Note();
+			New_no.data = str;
+			head = New_no;
+			New_no.next = tno;
+			index++;
+		}else{
+			Note no = indexNote(in);	//index前一個Note
+			Note tno = no.next;			//index前一個Note.next
+			Note New_no = new Note();	//新的Note
+			New_no.data = str;
+			no.next = New_no;
+			New_no.next = tno;
+			index++;
+		}	
+	}
+	
+	
+	//顯示特定index資料
+	void indexShow(int in) {
+		Note not = head;
+		if(index <= in) {
+			System.out.println("超出資料index!!");
+		}else {
+			for(int i=0 ; i<in ;i++) {
+				not = not.next;
+			}
+			System.out.println("index "+in+" : "+not.data);
+		}
+		
+	}
+	
+	//顯示所有資料
+	void showAll() {
+		Note not = head;
+		for(int i=0 ; i<index ; i++) {
+			System.out.print(not.data+" ");
+			not = not.next;
+		}
+		System.out.println();
+	}
+	
+	
+	//指定刪除Index Node
+	void removeIndex(int in) {
+		if(index == 0) {
+			System.out.println("裡面沒有資料可以刪了!");
+		}else if(index <= in){
+			System.out.println("超出資料index!!");
+		}else if(in == 0){
+			Note no = head;
+			Note New_no = no.next;
+			head = New_no;
+			index--;
+		}else {
+			Note no = indexNote(in);
+			Note New_no = no.next.next;
+			no.next = New_no;
+			index--;
+		}
+		
+	}
+	
+	//清除資料
+	void clean() {
+		index = 0;
+		head = null;
+		System.out.println("資料已清除");
+	}
+	
+	//資料長度
+	void length() {
+		System.out.println("資料長度為："+index);
+	}
+}
+	
+
+
+public class LL {
+	public static void main(String[] args) {
+		Linked_List ll = new Linked_List();
+		ll.addData("aaa");
+		ll.addData("bbb");
+		ll.addData("ccc");
+		ll.addData("ddd");
+		ll.addData("eee");
+		ll.showAll();
+		ll.indexShow(2);
+		ll.length();
+		ll.addIndexData(2, "pppd");
+		ll.showAll();
+		ll.length();
+		ll.addIndexData(0, "eweee");
+		ll.showAll();
+		ll.length();
+		ll.clean();
+		ll.length();
+		ll.addIndexData(0, "dsd");;
+		ll.addData("aaa");
+		ll.addData("bbb");
+		ll.addData("ccc");
+		ll.addData("ddd");
+		ll.addData("eee");
+		ll.showAll();
+		ll.removeIndex(0);
+		ll.showAll();
+		ll.removeIndex(3);
+		ll.showAll();
+		ll.addData("ddd");
+		ll.addIndexData(2, "stw");
+		ll.showAll();
+	}
+}

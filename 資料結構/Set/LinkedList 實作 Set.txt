@@ -1,0 +1,192 @@
+
+class st{
+	private int index = 0;
+	private Note head;
+	class Note{
+		String str;
+		Note next;
+	}
+	
+	//取的Note max data
+	private Note getNote() {
+		Note note = head;
+		for(int i=0 ; i<index-1 ; i++) {
+			note = note.next;
+		}
+		return note;
+	}
+	
+	//判斷是否重複
+	private boolean repeat(String s) {
+		Note note = head;
+		for(int i=0 ; i<index ; i++) {
+			if(note.str.equals(s)) {
+				return true;
+			}
+			note = note.next;
+		}
+		return false;
+	}
+	
+	//add 字串
+	public void add(String s) {
+		Note note = new Note();
+		if(index == 0) {
+			note.str = s;
+			head = note;
+			index++;
+		}else if(!repeat(s)){ 
+			if(index == 1) {
+				note.str = s;
+				head.next = note;
+			}else {
+				Note Tnote = getNote();
+				note.str = s;
+				Tnote.next = note;
+			}
+			index++;
+		}
+	}
+	
+	//addAll set+set 不重複
+	public void addAll(st no) {
+		Note addNote = no.head;
+		for(int i=0 ; i<no.index ; i++) {
+			add(addNote.str);
+			addNote = addNote.next;
+		}
+	}
+	
+	//找尋set裡面是否有這字串
+	public boolean contains(String s) {
+		Note note = head;
+		for(int i=0 ; i<index ; i++) {
+			if(note.str.equals(s)) {
+				return true;
+			}
+			note = note.next;
+		}
+		return false;
+	}
+	
+	//引進的set資料全都跟this相同
+	public boolean containsAll(st s) {
+		Note ConNote = s.head;
+		for(int i=0 ; i<s.index ; i++) {
+			if(!contains(ConNote.str)) {
+				return false;
+			}
+			ConNote = ConNote.next;
+		}
+		if(s.index == 0)
+			return false;
+		else
+			return true;
+	}
+	
+	//刪除此資料字串
+	public boolean remove(String s){
+		Note note = head;
+		Note Tnote = note;
+		for(int i=0 ; i<index ; i++) {
+			if(note.str.equals(s)) {
+				if(i == 0) {
+					head = Tnote.next;
+				}else {
+					Tnote.next = note.next;
+				}
+				index--;
+				return true;
+			}
+			Tnote = note;
+			note = note.next;
+		}
+		return false;
+	}
+	
+	//刪除一個 set的all data  
+	public boolean removeAll(st s) {
+		boolean All = true;
+		Note ReNote = s.head;
+		for(int i=0 ; i<s.index ; i++) {
+			if(!remove(ReNote.str)) {
+				All = false;
+			}
+			ReNote = ReNote.next;
+		}
+		return All;
+	}
+	
+	//交集 and
+	public void and(st s) {
+		boolean re = false;
+		Note n1 = s.head;
+		String str = "";
+		for(int i=0 ; i<s.index ; i++) {
+			if(repeat(n1.str)) {
+				str += n1.str+" ";
+				re = true;
+			}
+			n1 = n1.next;
+		}
+		if(re)
+			System.out.println("交集："+str);
+		else
+			System.out.println("無交集");
+	}
+	
+	
+	public void clean() {
+		head = null;
+		index = 0;
+	}
+	
+	public void Show() {
+		Note note = head;
+		for(int i=0 ; i<index ; i++) {
+			System.out.print(note.str+" ");
+			note = note.next;
+		}
+		System.out.println();
+	}
+}
+
+
+public class set {
+	public static void main(String[] args) {
+		st set1 = new st();
+		st set2 = new st();
+		set1.add("a");
+		set1.add("b");
+		set1.add("c");
+		set1.add("d");
+		set1.add("e");
+		set1.add("dasd");
+		set1.add("a");
+		set1.add("b");
+		set1.add("c");
+		set1.add("d");
+		set1.add("sdasd");
+		set1.add("e");
+		set1.add("dasd");
+		set1.Show();
+		set2.add("a");
+		set2.add("yy");
+		set2.add("t");
+		set2.add("yy");
+		set2.add("yyd");
+		set1.addAll(set2);
+		set1.Show();
+		System.out.println(set1.contains("yy"));
+		System.out.println(set1.containsAll(set2));
+		set1.remove("dasd");
+		set2.add("a");
+		System.out.println(set1.containsAll(set2));
+		set1.Show();
+		set1.add("dasd");
+		set1.Show();
+		set2.Show();
+		set1.Show();
+		set1.and(set2);
+	}
+}

@@ -1,0 +1,11 @@
+Set s = new HashSet();
+		Set a = new HashSet();
+		s.add("s");
+		s.add("s");
+		s.add("ss");
+		a.add("sd");
+		a.add("ssd");
+		a.add("ds");
+		System.out.println(s.contains("se"));
+		System.out.println(s.retainAll(a));
+		

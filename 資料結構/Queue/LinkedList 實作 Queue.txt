@@ -1,0 +1,100 @@
+
+class que{
+	private int index = 0;
+	private Note head;
+	class Note{
+		int data;
+		Note next;
+	}
+	
+	//取得最後前一筆資料(只能在此類別使用)
+	private Note lastPop() {
+		Note note = head;
+		for(int i=0 ; i<index-1 ; i++) {
+			note = note.next;
+		}
+		return note;
+	}
+	
+	//在後面新增資料
+	public void push(int n) {
+		Note note = new Note();
+		if(index == 0) {
+			note.data = n;
+			head = note;
+		}else if(index == 1) {
+			note.data = n;
+			head.next = note;
+		}else {
+			Note Tnote = lastPop();
+			note.data = n;
+			Tnote.next = note;
+		}
+		index++;
+	}
+	
+	//取得首列資料
+	public void peek() {
+		Note note = head;
+		if(index == 0) {
+			System.out.println("裡面無資料");
+		}else {
+			System.out.println("首列資料為："+note.data);
+		}
+	}
+	
+	//刪除首列資料
+	public void poll() {
+		if(index == 0) {
+			System.out.println("無資料可刪!!");
+		}else {
+			System.out.println("首列資料已刪除："+head.data);
+			head = head.next;
+			index--;
+		}
+	}
+	
+	public void Show() {
+		Note note = head;
+		if(index == 0) {
+			System.out.println("裡面無資料");
+		}else {
+			for(int i=0 ; i<index ; i++) {
+				System.out.print(note.data+" ");
+				note = note.next;
+			}
+			System.out.println();
+		}
+	}
+}
+
+public class queue {
+	public static void main(String[] args) {
+		que qu = new que();
+		qu.push(0);
+		qu.push(1);
+		qu.push(2);
+		qu.push(3);
+		qu.push(4);
+		qu.Show();
+		qu.peek();
+		qu.poll();
+		qu.Show();
+		qu.poll();
+		qu.poll();
+		qu.poll();
+		qu.poll();
+		qu.poll();
+		qu.poll();
+		qu.Show();
+		qu.push(4);
+		qu.push(3);
+		qu.push(2);
+		qu.push(1);
+		qu.push(0);
+		qu.push(-1);
+		qu.Show();
+		qu.poll();
+		qu.Show();
+	}
+}

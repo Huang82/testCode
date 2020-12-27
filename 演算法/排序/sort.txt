@@ -1,0 +1,7 @@
+氣泡排序 Bubble
+選擇排序 Selection
+插入排序 Insertion
+推積排序 heap sort
+基數排序 Radix sort
+桶排序	Bucket sort
+快速排序 quick sort	分而治之  Divide and Conquer
